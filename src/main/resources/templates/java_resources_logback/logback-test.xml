@@ -1,0 +1,11 @@
+<configuration>
+
+    <property name="LOG_CHARSET" value="UTF-8"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="config/file-appender.xml"/>
+
+    <root level="INFO" additivity="false">
+        <appender-ref ref="FILE_INFO"/>
+    </root>
+</configuration>

@@ -1,0 +1,79 @@
+{
+	"projectName":"console-gen-demo",
+	"packageName": "com.jd.gentest",
+	"groupId":"com.jd.zteam",
+	"systemName":"北京法院",
+	"domain":"m.com",
+	"companyName":"京东数字科技",
+	"outDir": "/Users/mayanjun/Desktop",
+	
+	"entityConfigs": [
+		{
+			"className": "Employee",
+			"comment": "员工",
+			"exportSupported": true,
+			"fieldConfigs": [
+				{
+					"name": "name",
+					"databaseLength": "64",
+					"indexed": true,
+					"comment": "设备名称"
+				},
+				{
+					"name": "gender",
+					"javaType": "gender",
+					"comment": "性别",
+					"enumValues": ["MALE", "男", "FEMALE", "女"]
+				},
+				{
+					"name": "birthdate",
+					"javaType": "Date",
+					"pattern": "yyyy-MM-dd",
+					"comment": "生日",
+					"indexed": true
+				},
+				{
+					"name": "userId",
+					"javaType": "long",
+					"comment": "用户ID",
+					"inputType": "SEARCH",
+					"remoteSearchEntityName": "User",
+					"remoteSearchLabelField": "username",
+					"remoteSearchDescField": "description"
+				},
+				{
+					"name": "off",
+					"javaType": "boolean",
+					"comment": "是否禁用"
+				},
+				{
+					"name": "file",
+					"comment": "快照",
+					"inputType":"FILE_IMAGE"
+				},
+				{
+					"name": "age",
+					"javaType": "int",
+					"indexed": true,
+					"comment": "年龄"
+				},
+				{
+					"name": "score",
+					"javaType": "float",
+					"databaseLength": "5,2",
+					"comment": "得分"
+				},
+				{
+					"name": "address",
+					"comment": "地址",
+					"databaseLength": "32"
+				},
+				{
+					"name": "description",
+					"comment": "描述",
+					"databaseLength": "200"
+				}
+			]
+		}
+	]
+}
