@@ -24,7 +24,7 @@ import static ${packageName}.interceptor.Verify.VERIFY_HEADERS;
 @Component
 public class VerifyInterceptor extends AnnotationBasedHandlerInterceptor {
 
-    private static final String SECRET_KEY = "${secretKey}";
+    private static final String SECRET_KEY = "${verifySecretKey}";
 
     @Override
     public int getOrder() {

@@ -10,9 +10,7 @@ import org.mayanjun.core.Assert;
 import org.mayanjun.myjack.api.query.Query;
 import org.mayanjun.myjack.api.query.QueryBuilder;
 import org.mayanjun.myjack.dao.BasicDAO;
-import org.mayanjun.myrest.session.Session;
-import org.mayanjun.myrest.session.SessionUser;
-import org.mayanjun.myrest.session.UserLoader;
+import org.mayanjun.myrest.session.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -31,7 +29,7 @@ import java.util.*;
  * @manufacturer ${manufacturer}
  */
 @Component
-public class SessionManager extends Session<User> implements InitializingBean {
+public class SessionManager extends AESSession<User> implements InitializingBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(SessionManager.class);
 
@@ -65,8 +63,7 @@ public class SessionManager extends Session<User> implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         setDomain(config.getDomain());
         setTokenName(config.getTokenCookieName());
-        setKeyPairStore(config.keyPairStore());
-        setTokenName(config.getTokenCookieName());
+        setSecretKeyStore(config.secretKeyStore());
         setUserLoader(new UserLoader<User>() {
             @Override
             public SessionUser<User> loadUser(String username) {
@@ -117,7 +114,7 @@ public class SessionManager extends Session<User> implements InitializingBean {
                 .andEquivalent("username", username)
                 .build();
         User user = dao.queryOne(query);
-        Assert.notNull(user, Session.USER_NOT_EXISTS);
+        Assert.notNull(user, AbstractSession.USER_NOT_EXISTS);
 
         // 查询角色列表
         if (Boolean.TRUE.equals(user.getAdministrator())) { // is admin

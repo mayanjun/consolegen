@@ -1,5 +1,7 @@
-package org.mayanjun.gen;
+package org.mayanjun;
 
+import org.mayanjun.gen.CodeGenerator;
+import org.mayanjun.gen.GeneratorContext;
 import org.mayanjun.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

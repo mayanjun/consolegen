@@ -62,7 +62,7 @@
         <dependency>
             <groupId>org.mayanjun</groupId>
             <artifactId>myrest</artifactId>
-            <version>0.0.1.RELEASE</version>
+            <version>0.0.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>

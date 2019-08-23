@@ -96,7 +96,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.mayanjun.gen.ProjectGenerator</mainClass>
+                            <mainClass>org.mayanjun.ProjectGenerator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -51,7 +51,7 @@ public abstract class TemplateCodeGenerator implements CodeGenerator {
         root.put("manufacturer", config.getManufacturer());
         root.put("vue_date_options_present", false);
         root.put("data_export_supported", false);
-        root.put("secretKey", config.getSecretKey());
+        root.put("verifySecretKey", config.getVerifySecretKey());
         return root;
     }
 

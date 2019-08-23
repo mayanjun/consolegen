@@ -2,7 +2,7 @@
 
 ### 运行步骤：
 
-- 创建 org.mayanjun.gen.ProjectGenerator 实例
+- 创建 org.mayanjun.ProjectGenerator 实例
 - 执行 generate() 方法
 - 在配置文件旁边会生成 dist文件夹，里面包含完整的项目文件
 

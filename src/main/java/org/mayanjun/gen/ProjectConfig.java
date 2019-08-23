@@ -95,7 +95,14 @@ public class ProjectConfig implements ValidateConfig {
 
     private String manufacturer = "https://mayanjun.org";
 
-    private String secretKey = Strings.generateSecretKey(32);
+    @Configurable(comment = "接口参数验证拦截器的秘钥")
+    private String verifySecretKey = Strings.generateSecretKey(32);
+
+    @Configurable(comment = "系统登录验证TOKEN的加密秘钥")
+    private String aesSecretKey = Strings.generateSecretKey(32);
+
+    @Configurable(comment = "系统登录验证TOKEN的加密秘钥初始向量")
+    private String aesIv = Strings.generateSecretKey(16);
 
     private String date = DateTime.now().toString("yyyy-MM-dd");
 
@@ -123,14 +130,18 @@ public class ProjectConfig implements ValidateConfig {
         }
 
         // 生成密钥
-        generateKeys();
+        generateRSAKeys();
+        generateAESKey();
 
         validated = true;
         return validated;
     }
 
+    public void generateAESKey() {
 
-    public void generateKeys() {
+    }
+
+    public void generateRSAKeys() {
         KeyPairGenerator keygen = null;
         try {
             keygen = KeyPairGenerator.getInstance("RSA");
@@ -325,8 +336,8 @@ public class ProjectConfig implements ValidateConfig {
         return date;
     }
 
-    public String getSecretKey() {
-        return secretKey;
+    public String getVerifySecretKey() {
+        return verifySecretKey;
     }
 
     public String getOutDir() {
@@ -335,5 +346,25 @@ public class ProjectConfig implements ValidateConfig {
 
     public void setOutDir(String outDir) {
         this.outDir = outDir;
+    }
+
+    public String getAesSecretKey() {
+        return aesSecretKey;
+    }
+
+    public String getAesIv() {
+        return aesIv;
+    }
+
+    public void setVerifySecretKey(String verifySecretKey) {
+        this.verifySecretKey = verifySecretKey;
+    }
+
+    public void setAesSecretKey(String aesSecretKey) {
+        this.aesSecretKey = aesSecretKey;
+    }
+
+    public void setAesIv(String aesIv) {
+        this.aesIv = aesIv;
     }
 }

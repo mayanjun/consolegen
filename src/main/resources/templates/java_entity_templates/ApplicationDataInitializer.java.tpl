@@ -4,12 +4,12 @@ import ${packageName}.bean.Menu;
 import ${packageName}.bean.Privilege;
 import ${packageName}.bean.User;
 import ${packageName}.business.AttributeBusiness;
+import ${packageName}.interceptor.SessionManager;
 import ${packageName}.sql.CustomMapper;
 import ${packageName}.util.CommonUtils;
 import org.mayanjun.myjack.api.query.Query;
 import org.mayanjun.myjack.api.query.QueryBuilder;
 import org.mayanjun.myjack.dao.BasicDAO;
-import org.mayanjun.util.Encryptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
@@ -27,18 +27,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  * 系统初始化。初始化用户、菜单、权限等信息
- * @since ${date}
- * @author ${author}
- * @vendor ${vendor}
- * @generator ${generatorVersion}
- * @manufacturer ${manufacturer}
+ * @since 2019-07-06
+ * @author mayanjun
+ * @vendor JDD (https://www.jddglobal.com)
  */
 @Component
 public class ApplicationDataInitializer implements ApplicationRunner, ApplicationContextAware {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ApplicationDataInitializer.class);
 
     public static final String INITIALIZER_USERNAME = "SYSTEM";
@@ -46,13 +43,25 @@ public class ApplicationDataInitializer implements ApplicationRunner, Applicatio
     @Autowired
     private BasicDAO dao;
 
-    @Autowired
-    private AppConfig config;
-
     private ApplicationContext applicationContext;
 
     @Autowired
     private AttributeBusiness ab;
+
+    @Autowired
+    private SessionManager sessionManager;
+
+    private static final String MENUS[][] = new String[][] {
+            // children-count, pid, name, icon, url
+            new String[]{"4", "系统管理", "el-icon-s-operation", ""},
+            new String[]{"0", "菜单管理", "el-icon-menu", "/pages/menu/list"},
+            new String[]{"0", "用户管理", "el-icon-user", "/pages/user/list"},
+            new String[]{"0", "角色管理", "el-icon-present", "/pages/role/list"},
+            new String[]{"0", "权限管理", "el-icon-c-scale-to-original", "/pages/privilege/list"},
+
+            new String[]{"0", "地区管理", "el-icon-map-location", "/pages/region/list"},
+            new String[]{"0", "系统设置", "el-icon-setting", "/pages/settings/add"}
+    };
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -70,8 +79,6 @@ public class ApplicationDataInitializer implements ApplicationRunner, Applicatio
         CustomMapper mapper = dao.getDataBaseRouter().getDatabaseSession().getMapper(CustomMapper.class);
         mapper.generateDatabase();
     }
-
-
 
     private void addMethodsToSet(Method [] methods, Set<Method> methodSet) {
         if (methods != null && methods.length > 0) {
@@ -259,7 +266,6 @@ public class ApplicationDataInitializer implements ApplicationRunner, Applicatio
         private String [] dependencies;
         private Class<?> cls;
         private Method method;
-        private Long id;
 
         public PrivilegeMetaData(Class<?> cls, Method method,
                 String methodName, String name, String description, String[] dependencies) {
@@ -289,7 +295,7 @@ public class ApplicationDataInitializer implements ApplicationRunner, Applicatio
             user.setUsername("admin");
             user.setDescription("System init user");
             String password = generatePassword();
-            String enc = Encryptions.encrypt(password, config.keyPairStore());
+            String enc = sessionManager.encryptPassword(password);
             user.setPassword(enc);
             user.setCreator(INITIALIZER_USERNAME);
             user.setEditor(INITIALIZER_USERNAME);
@@ -303,20 +309,6 @@ public class ApplicationDataInitializer implements ApplicationRunner, Applicatio
         int start = new Double(Math.random() * (uuid.length() - 6)).intValue();
         return uuid.substring(start, start + 6);
     }
-
-    private static final String MENUS[][] = new String[][] {
-            // children-count, pid, name, icon, url
-            new String[]{"4", "系统管理", "el-icon-s-operation", ""},
-            new String[]{"0", "菜单管理", "el-icon-menu", "/pages/menu/list"},
-            new String[]{"0", "用户管理", "el-icon-user", "/pages/user/list"},
-            new String[]{"0", "角色管理", "el-icon-present", "/pages/role/list"},
-            new String[]{"0", "权限管理", "el-icon-c-scale-to-original", "/pages/privilege/list"},
-
-${entity_menu_items!""}
-
-            new String[]{"0", "地区管理", "el-icon-map-location", "/pages/region/list"},
-            new String[]{"0", "系统设置", "el-icon-setting", "/pages/settings/add"},
-    };
 
     /**
      * 初始化菜单

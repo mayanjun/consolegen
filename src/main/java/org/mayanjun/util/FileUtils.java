@@ -1,7 +1,5 @@
 package org.mayanjun.util;
 
-import org.mayanjun.gen.ProjectGenerator;
-
 import java.io.File;
 
 /**

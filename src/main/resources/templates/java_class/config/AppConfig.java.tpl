@@ -1,6 +1,7 @@
 package ${packageName}.config;
 
 import org.mayanjun.util.KeyPairStore;
+import org.mayanjun.util.SecretKeyStore;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -27,11 +28,17 @@ public class AppConfig implements InitializingBean {
 
     private KeyPairStore keyPairStore;
 
+    private SecretKeyStore secretKeyStore;
+
     private String tokenCookieName;
 
     private String uploadDir;
 
     private String systemName;
+
+    private String aesSecretKey;
+
+    private String aesIv;
 
     public String getEnv() {
         return env;
@@ -47,6 +54,7 @@ public class AppConfig implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         this.keyPairStore = new KeyPairStore(this.privateKey, this.publicKey);
+        secretKeyStore = new SecretKeyStore(aesSecretKey, aesIv);
     }
 
     public String getDomain() {
@@ -77,6 +85,10 @@ public class AppConfig implements InitializingBean {
         return keyPairStore;
     }
 
+    public SecretKeyStore secretKeyStore() {
+        return secretKeyStore;
+    }
+
     public String getTokenCookieName() {
         return tokenCookieName;
     }
@@ -99,5 +111,21 @@ public class AppConfig implements InitializingBean {
 
     public void setSystemName(String systemName) {
         this.systemName = systemName;
+    }
+
+    public String getAesSecretKey() {
+        return aesSecretKey;
+    }
+
+    public void setAesSecretKey(String aesSecretKey) {
+        this.aesSecretKey = aesSecretKey;
+    }
+
+    public String getAesIv() {
+        return aesIv;
+    }
+
+    public void setAesIv(String aesIv) {
+        this.aesIv = aesIv;
     }
 }

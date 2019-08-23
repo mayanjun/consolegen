@@ -21,6 +21,8 @@ app-config:
   systemName: "${systemName}"
   uploadDir: "${fileUploadDir}"
   midnight-task-cron: "0 30 0 * * ?"
+  aesSecretKey: "${aesSecretKey}"
+  aesIv: "${aesIv}"
 
 spring:
   jackson:
