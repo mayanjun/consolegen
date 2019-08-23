@@ -44,8 +44,10 @@
 
 - ProjectConfig 配置
 
-配置项 | 数据类型 | 是否必须 | 默认值 | 说明
-- | :-: | :-: |-| -
+| 配置项 | 数据类型 | 是否必须 | 默认值 | 说明 |
+---- | :----: | :----: | ---- | ----
+aesIv|String|N||系统登录验证TOKEN的加密秘钥初始向量
+aesSecretKey|String|N||系统登录验证TOKEN的加密秘钥
 author|String|N|mayanjun|代码作者信息
 companyName|String|N||用于在页脚生成公司名字
 domain|String|N|m.com|项目域名，用于访问后台的域名
@@ -64,12 +66,14 @@ sessionCookieName|String|N|token|登录验证系统的Cookie名称
 slogan|String|N|打造智能系统|用于在页脚生成的一句话标语
 systemName|String|N|后台管理系统|后台要显示的系统名称
 vendor|String|N|mayanjun.org|系统提供商
+verifySecretKey|String|N||接口参数验证拦截器的秘钥
 version|String|N|0.0.1-SNAPSHOT|项目版本，用于生成POM文件
+
 
 - EntityConfig 配置
 
 配置项 | 数据类型 | 是否必须 | 默认值 | 说明
-- | :-: | :-: |-| -
+---- | :----: | :----: | ---- | ----
 className|String|Y||实体类名
 comment|String|Y||简短的实体描述，这个也会用来生成对应的管理菜单的名称，因此不要太长
 exportSupported|boolean|N||是否支持后台数据导出功能
@@ -79,7 +83,7 @@ icon|String|N|el-icon-monitor|后台管理对应的菜单图标,选值请参见�
 - FieldConfig 配置
 
 配置项 | 数据类型 | 是否必须 | 默认值 | 说明
-- | :-: | :-: |-| -
+---- | :----: | :----: | ---- | ----
 comment|String|Y||字段简短描述，该值还用来生成数据表头，因此不要太长
 databaseLength|String|N|64|数据库的长度描述
 databaseType|DataType|N|VARCHAR|数据库的字段类型，取值请参见【org.mayanjun.myjack.api.enums.DataType】的枚举值
@@ -89,6 +93,9 @@ inputType|InputType|N||输入框的类型，可选的值为FILE_IMAGE：上传�
 javaType|String|N|String|字段的Java类型
 name|String|Y||英文字段名
 pattern|String|N|yyyy-MM-dd HH:mm:ss|如果字段的类型是日期类型，则指定格式化模式。日期类型在后台会生成日期或者时间选择框
+remoteSearchDescField|String|N||当InputType为SEARCH时，指定远程搜索对象的要显示的描述信息的字段名
+remoteSearchEntityName|String|N||当InputType为SEARCH时，指定远程搜索的实体名称
+remoteSearchLabelField|String|N||当InputType为SEARCH时，指定远程搜索对象的要显示的字段名，并且远程搜索字段的字段类型必须为long类型
 
 
 ### 开发

@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author mayanjun
@@ -22,11 +25,14 @@ public class ConfigVerifier {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigVerifier.class);
 
+    private static boolean generateDoc = false;
+
     private ConfigVerifier() {
     }
 
     public static void verify(ValidateConfig config) {
-//        List<String> strings = new ArrayList<>();
+        List<String> strings = new ArrayList<>();
+
         PropertyUtilsBean pub = BeanUtilsBean.getInstance().getPropertyUtils();
         PropertyDescriptor descriptors[] = pub.getPropertyDescriptors(config);
         for (PropertyDescriptor origDescriptor : descriptors) {
@@ -39,10 +45,12 @@ public class ConfigVerifier {
                 Field field = config.getClass().getDeclaredField(name);
                 Configurable configurable = field.getAnnotation(Configurable.class);
                 if (configurable != null) {
-//                    String row = String.format("%s|%s|%s|%s|%s",
-//                            name, field.getType().getSimpleName(), (configurable.required() ? "Y" : "N"), configurable.defaultValue(),  configurable.comment());
-//
-//                    strings.add(row);
+                    if (generateDoc) {
+                        String row = String.format("%s|%s|%s|%s|%s",
+                                name, field.getType().getSimpleName(), (configurable.required() ? "Y" : "N"), configurable.defaultValue(),  configurable.comment());
+                        strings.add(row);
+                    }
+
 
                     String defaultValue = configurable.defaultValue();
                     if (configurable.required() || StringUtils.isNotBlank(defaultValue)) {
@@ -62,10 +70,12 @@ public class ConfigVerifier {
             }
         }
 
-//        System.out.println("#######################" + config.getClass().getSimpleName());
-//        Collections.sort(strings);
-//        for (String string : strings) {
-//            System.out.println(string);
-//        }
+        if (generateDoc) {
+            System.out.println("#######################" + config.getClass().getSimpleName());
+            Collections.sort(strings);
+            for (String string : strings) {
+                System.out.println(string);
+            }
+        }
     }
 }
