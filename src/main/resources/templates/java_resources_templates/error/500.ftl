@@ -11,7 +11,7 @@
     <div style="margin: 0px auto 100px; text-align: center; color: #00345f">
         <p>${.now?string("yyyy-MM-dd HH:mm:ss.SSS")}</p>
         <p>
-            ${exception.message}
+            ${exception.message!""}
         </p>
         <p>
             服务器发除了一点问题，请稍后重试或回到 <a class="normal-link" href="/">主页</a>
