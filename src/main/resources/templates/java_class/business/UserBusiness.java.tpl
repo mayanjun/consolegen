@@ -93,4 +93,19 @@ public class UserBusiness extends BaseBusiness<User> {
         }
         return user;
     }
+
+    @Override
+    public void delete(Long[] ids) {
+        // 删除用户的时候应该删除给用户已经分配的权限
+        transaction().execute(transactionStatus -> {
+            Query<User> deleteQuery = QueryBuilder.custom(getBeanType()).andIn("id", ids).build();
+            service.delete(deleteQuery);
+
+            // 删除角色
+            Query<UserRole> query = QueryBuilder.custom(UserRole.class).andIn("user", ids).build();
+            service.delete(query);
+
+            return true;
+        });
+    }
 }

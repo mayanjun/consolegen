@@ -2,6 +2,7 @@ package ${packageName}.business;
 
 import ${packageName}.bean.Privilege;
 import ${packageName}.bean.Role;
+import ${packageName}.bean.UserRole;
 import ${packageName}.bean.RoleMenu;
 import ${packageName}.bean.RolePrivilege;
 import org.apache.commons.collections.CollectionUtils;
@@ -153,5 +154,19 @@ public class RoleBusiness extends BaseBusiness<Role> {
         }
 
         return role;
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        transaction().execute(transactionStatus -> {
+            Query<UserRole> query = QueryBuilder.custom(UserRole.class)
+                    .andIn("role", ids)
+                    .forUpdate()
+                    .build();
+            long count = service.count(query);
+            Assert.isTrue(count <= 0, "您要删除的角色有用户正在使用，请先为用户解除该角色后再进行删除");
+            RoleBusiness.super.delete(ids);
+            return true;
+        });
     }
 }
