@@ -15,9 +15,9 @@
     "projectName":"gentest11",
     "packageName": "com.jd.gentest",
     "groupId":"com.jd.zteam",
-    "systemName":"北京法院",
+    "systemName":"XX公司",
     "domain":"m.com",
-    "companyName":"京东数字科技",
+    "companyName":"XX科技公司",
     ...
     
     "entityConfigs": [
