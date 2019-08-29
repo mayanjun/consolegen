@@ -15,8 +15,8 @@
     <dependencies>
         <dependency>
             <groupId>org.mayanjun</groupId>
-            <artifactId>myjack-starter</artifactId>
-            <version>0.0.2</version>
+            <artifactId>mayanjun-myjack-starter</artifactId>
+            <version>0.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.9</version>
+            <version>2.9.9.3</version>
         </dependency>
 
         <dependency>
