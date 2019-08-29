@@ -2,9 +2,9 @@
 	"projectName":"console-gen-demo",
 	"packageName": "com.jd.gentest",
 	"groupId":"com.jd.zteam",
-	"systemName":"北京法院",
+	"systemName":"XX后台管理系统",
 	"domain":"m.com",
-	"companyName":"京东数字科技",
+	"companyName":"XX科技公司",
 	"outDir": "/Users/mayanjun/Desktop",
 	
 	"entityConfigs": [
