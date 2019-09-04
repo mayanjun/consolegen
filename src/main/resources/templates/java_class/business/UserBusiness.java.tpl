@@ -12,6 +12,7 @@ import org.mayanjun.myjack.api.query.QueryBuilder;
 import org.mayanjun.util.Encryptions;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

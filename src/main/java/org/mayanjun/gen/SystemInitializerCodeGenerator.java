@@ -35,7 +35,7 @@ public class SystemInitializerCodeGenerator extends TemplateCodeGenerator {
         List<EntityConfig> configs = config.getEntityConfigs();
         if (CollectionUtils.isNotEmpty(configs)) {
 
-            StringJoiner initMenuItemsJoiner = new StringJoiner("\n", "\t\t\t", ",");
+            StringJoiner initMenuItemsJoiner = new StringJoiner(",\n", "\t\t\t", ",");
             configs.forEach(e -> {
                 try {
                     initMenuItemsJoiner.add(
