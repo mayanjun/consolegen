@@ -223,7 +223,7 @@ public class AddPageCodeGenerator extends TemplateCodeGenerator {
                             "                </el-form-item>";
 
                     htmlFieldsJoiner.add(
-                            String.format(html, f.getComment(), uploadOptionsName, handleSuccessName, handleErrorName, handleBeforeName)
+                            String.format(html, f.getComment(), fileListName, uploadOptionsName, handleSuccessName, handleErrorName, handleBeforeName)
                     );
 
                     String uploadJSHtml = "vue_options.data.%s = {tag: '%s'};\n" +
