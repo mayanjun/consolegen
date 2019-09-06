@@ -33,7 +33,7 @@ public class FileMeta extends EntityBean {
     @Column(type = DataType.BIGINT)
     private Long size;
 
-    @Column(length = "64")
+    @Column(length = "128")
     private String mime;
 
     @Column(length = "32")

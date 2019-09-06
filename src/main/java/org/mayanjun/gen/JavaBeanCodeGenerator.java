@@ -177,6 +177,8 @@ public class JavaBeanCodeGenerator extends TemplateCodeGenerator {
                 if (length < 500) length = 500;
             }
 
+            // render references type
+
             fieldCode.append(
                     String.format("\t@Column(comment = \"%s\", type = DataType.%s%s)\n",
                             f.getComment() == null ? "" : f.getComment(),
