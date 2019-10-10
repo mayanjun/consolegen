@@ -20,8 +20,6 @@ public class CustomSQLBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomSQLBuilder.class);
 
-    private static final String GUEST_STAT_SQL = "SELECT HOUR(date) as ah, direction, count(*) as cnt FROM t_guest WHERE `date`>='%s' AND `date`<'%s' AND entityType!='com.jd.court.bean.Employee' GROUP BY ah,direction";
-
     /**
      * @return
      * @throws Exception
