@@ -15,7 +15,7 @@ public class ProjectGenerator implements CodeGenerator {
     private static final Logger LOG = LoggerFactory.getLogger(ProjectGenerator.class);
 
     public static void main(String[] args) {
-        String demoFile = FileUtils.getRootPath() + "/demo.json";
+        String demoFile = "/Users/mayanjun/Desktop/demo.json";
         ProjectGenerator gen = new ProjectGenerator(demoFile);
         gen.generate();
     }

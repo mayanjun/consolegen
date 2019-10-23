@@ -33,8 +33,9 @@ public class SystemInitializerCodeGenerator extends TemplateCodeGenerator {
         ProjectConfig config = context().getProjectConfig();
 
         List<EntityConfig> configs = config.getEntityConfigs();
-        if (CollectionUtils.isNotEmpty(configs)) {
 
+        StringJoiner joiner = null;
+        if (CollectionUtils.isNotEmpty(configs)) {
             StringJoiner initMenuItemsJoiner = new StringJoiner(",\n", "\t\t\t", ",");
             configs.forEach(e -> {
                 try {
@@ -46,8 +47,9 @@ public class SystemInitializerCodeGenerator extends TemplateCodeGenerator {
                     throw new ServiceException(Status.INTERNAL_ERROR, "Generate entity code error", e.getClassName(), ex);
                 }
             });
-            renderDataInitializerCode(initMenuItemsJoiner);
+            joiner = initMenuItemsJoiner;
         }
+        renderDataInitializerCode(joiner);
         LOG.info("System initializer code generate done");
     }
 
@@ -65,7 +67,7 @@ public class SystemInitializerCodeGenerator extends TemplateCodeGenerator {
 
         Map<String, Object> root = rootMap();
         root.put("packageName", config.getPackageName());
-        root.put("entity_menu_items", initMenuItemsJoiner.toString());
+        root.put("entity_menu_items", initMenuItemsJoiner == null ? "" : initMenuItemsJoiner.toString());
 
         //cfg.getTemplate("business.tpl").process(root, new OutputStreamWriter(System.out));
         context().getTemplateConfiguration().getTemplate("java_entity_templates/ApplicationDataInitializer.java.tpl").process(root, new OutputStreamWriter(new FileOutputStream(targetFile)));
